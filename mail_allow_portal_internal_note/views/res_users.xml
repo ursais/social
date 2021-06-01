@@ -1,0 +1,18 @@
+<odoo>
+    <record id="user_form_portal_user_special" model="ir.ui.view">
+        <field name="name">special.portal.user.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <page name="access_rights" position="inside">
+                <group>
+                    <field invisible="1" name="share" />
+                    <field
+                        attrs="{'invisible':[('share','=',False)]}"
+                        name="special_portal_users"
+                    />
+                </group>
+            </page>
+        </field>
+    </record>
+</odoo>
