@@ -3,6 +3,7 @@
 
 from odoo import http
 from odoo.http import request
+from odoo.osv import expression
 
 from odoo.addons.portal.controllers.mail import PortalChatter
 
@@ -24,6 +25,16 @@ class PortalChatterExt(PortalChatter):
         return False
 
     @http.route()
+    def portal_chatter_init(
+        self, res_model, res_id, domain=False, limit=False, **kwargs
+    ):
+        # Bump default message limit to 80, since 10 is too low
+        # This triggers (some) message pagination
+        return super().portal_chatter_init(
+            res_model, res_id, domain=False, limit=80, **kwargs
+        )
+
+    @http.route()
     def portal_message_fetch(
         self, res_model, res_id, domain=False, limit=10, offset=0, **kw
     ):
@@ -32,8 +43,13 @@ class PortalChatterExt(PortalChatter):
         )
         if self.portal_can_see_internal_messages(res_model, res_id):
             Message = request.env["mail.message"]
-            res["messages"] = Message.search(
-                domain or [], limit=limit, offset=offset
-            ).portal_message_format()
-            res["message_count"] = len(res["messages"])
+            domain = expression.AND(
+                [domain, [("model", "=", res_model), ("res_id", "=", res_id)]]
+            )
+            messages = (
+                Message.sudo()
+                .search(domain or [], limit=limit, offset=offset)
+                .portal_message_format()
+            )
+            res.update({"messages": messages, "message_count": len(messages)})
         return res
