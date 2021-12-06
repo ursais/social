@@ -137,16 +137,6 @@ class PortalChatterExt(PortalChatter):
         return False
 
     @http.route()
-    def portal_chatter_init(
-        self, res_model, res_id, domain=False, limit=False, **kwargs
-    ):
-        # Bump default message limit to 80, since 10 is too low
-        # This triggers (some) message pagination
-        return super().portal_chatter_init(
-            res_model, res_id, domain=False, limit=80, **kwargs
-        )
-
-    @http.route()
     def portal_message_fetch(
         self, res_model, res_id, domain=False, limit=10, offset=0, **kw
     ):
@@ -163,7 +153,8 @@ class PortalChatterExt(PortalChatter):
                 .search(domain or [], limit=limit, offset=offset)
                 .portal_message_format()
             )
-            res.update({"messages": messages, "message_count": len(messages)})
+            message_count = Message.search_count(domain)
+            res.update({"messages": messages, "message_count": message_count})
         return res
 
     @http.route(
