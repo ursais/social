@@ -284,6 +284,7 @@ msgstr "Neuspelo"
 #: model:ir.model.fields,field_description:mail_tracking.field_account_move__failed_message_ids
 #: model:ir.model.fields,field_description:mail_tracking.field_account_payment__failed_message_ids
 #: model:ir.model.fields,field_description:mail_tracking.field_calendar_event__failed_message_ids
+#: model:ir.model.fields,field_description:mail_tracking.field_crm_team__failed_message_ids
 #: model:ir.model.fields,field_description:mail_tracking.field_event_event__failed_message_ids
 #: model:ir.model.fields,field_description:mail_tracking.field_event_registration__failed_message_ids
 #: model:ir.model.fields,field_description:mail_tracking.field_mail_blacklist__failed_message_ids
@@ -299,6 +300,7 @@ msgstr "Neuspelo"
 #: model:ir.model.fields,field_description:mail_tracking.field_product_template__failed_message_ids
 #: model:ir.model.fields,field_description:mail_tracking.field_res_partner__failed_message_ids
 #: model:ir.model.fields,field_description:mail_tracking.field_res_users__failed_message_ids
+#: model:ir.model.fields,field_description:mail_tracking.field_sale_order__failed_message_ids
 #, fuzzy
 msgid "Failed Messages"
 msgstr "Sporočilo"
@@ -509,11 +511,15 @@ msgstr "Prejemnik"
 
 #. module: mail_tracking
 #: model:ir.model.fields,field_description:mail_tracking.field_mail_tracking_event__recipient
-#: model_terms:ir.ui.view,arch_db:mail_tracking.view_mail_tracking_email_search
 #: model_terms:ir.ui.view,arch_db:mail_tracking.view_mail_tracking_email_tree
 #: model_terms:ir.ui.view,arch_db:mail_tracking.view_mail_tracking_event_search
 msgid "Recipient"
 msgstr "Prejemnik"
+
+#. module: mail_tracking
+#: model_terms:ir.ui.view,arch_db:mail_tracking.view_mail_tracking_email_search
+msgid "Recipient Address"
+msgstr ""
 
 #. module: mail_tracking
 #: model:ir.model.fields,field_description:mail_tracking.field_mail_tracking_email__recipient
